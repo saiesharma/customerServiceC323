@@ -20,9 +20,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleException(MethodArgumentNotValidException exception)
     {
-        String erroMessage = exception.getBindingResult().getFieldErrors().stream().
+        String erroMessages = exception.getBindingResult().getFieldErrors().stream().
                 map(error -> error.getDefaultMessage()).collect(Collectors.joining(","));
 
-        return ResponseEntity.badRequest().body((Object) erroMessage);
+        return ResponseEntity.badRequest().body(erroMessages);
     }
 }
