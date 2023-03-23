@@ -11,7 +11,7 @@ public class GreetingController {
     @GetMapping
     public String greetings()
     {
-        return "Sweta!";
+        return "Greetings!";
     }
 
 }
