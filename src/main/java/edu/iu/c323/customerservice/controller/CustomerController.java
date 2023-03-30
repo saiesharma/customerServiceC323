@@ -2,7 +2,7 @@ package edu.iu.c323.customerservice.controller;
 
 import java.util.*;
 import edu.iu.c323.customerservice.model.Customer;
-import edu.iu.c323.customerservice.repository.CustomerRepository;
+import edu.iu.c323.customerservice.repository.CustomerRespository;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customers")
 
 public class CustomerController {
-    private CustomerRepository repository;
-    public CustomerController(CustomerRepository repository)
+    private CustomerRespository repository;
+    public CustomerController(CustomerRespository repository)
     {
         this.repository = repository;
     }
@@ -23,17 +23,22 @@ public class CustomerController {
     @PostMapping
     public int create(@Valid @RequestBody Customer customer)
     {
-        return repository.create(customer);
+        Customer newCustomer =  repository.save(customer);
+        return newCustomer.getId();
     }
     @PutMapping("/{id}")
     public void update(@Valid @RequestBody Customer customer, @PathVariable int id)
     {
-        repository.update(customer,id);
+        customer.setId(id);
+        repository.save(customer);
     }
     @DeleteMapping("/{id}")
+
     public void delete(@PathVariable int id)
     {
-        repository.delete(id);
+        Customer c = new Customer();
+        c.setId(id);
+        repository.delete(c);
     }
 
 }

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class CustomerRepository {
+
+public class InMemoryCustomerRepository {
     private List<Customer> customers = new ArrayList<>();
 
     public List<Customer> findAll() {
