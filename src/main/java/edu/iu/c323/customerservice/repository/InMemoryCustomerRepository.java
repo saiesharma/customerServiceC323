@@ -1,49 +1,51 @@
 package edu.iu.c323.customerservice.repository;
 
-import edu.iu.c323.customerservice.model.Customer;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import edu.p565.demo1.model.Customer;
+
 
 public class InMemoryCustomerRepository {
-    private List<Customer> customers = new ArrayList<>();
 
-    public List<Customer> findAll() {
+    List<Customer> customers = new ArrayList<>();
+
+    public List<Customer> findAll(){
         return customers;
     }
 
-    public int create(Customer customer) {
+    public int create(Customer customer){
         int id = customers.size() + 1;
         customer.setId(id);
         customers.add(customer);
         return id;
     }
 
-    public void update(Customer customer, int id) {
-        Customer x = getCustomerbyID(id);
-        if (x != null) {
-            x.setName(customer.getName());
-            x.setEmail(customer.getEmail());
+    public void update(Customer customer, int id){
+        Customer c = getById(id);
+        if(c != null){
+            c.setEmail(customer.getEmail());
+            c.setName(customer.getEmail());
         } else {
-            throw new IllegalStateException("customer id is not valid.");
+            throw new IllegalStateException("customer with this id was not found.");
         }
+    }
+
+    private Customer getById(int id){
+        Customer c = customers.stream().filter(x -> x.getId() == id).findAny().orElse(null);
+        return c;
     }
 
     public void delete(int id) {
-        Customer x = getCustomerbyID(id);
-        if (x != null) {
-            customers.remove(x);
+        Customer c = getById(id);
+        if(c != null){
+            customers.remove(c);
         } else {
-            throw new IllegalStateException("customer id is not valid.");
+            throw new IllegalStateException("customer with this id was not found.");
         }
     }
-
-    private Customer getCustomerbyID(int id) {
-        return customers.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-
-    }
-
-
 }
+
+
