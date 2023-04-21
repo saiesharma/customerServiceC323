@@ -1,7 +1,8 @@
-package edu.p565.demo1.controller;
+//package edu.p565.demo1.controller;
 
 import java.util.List;
 
+import edu.iu.c323.customerservice.repository.CustomerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.p565.demo1.model.Customer;
-import edu.p565.demo1.repository.CustomerRepository;
+//import edu.p565.demo1.repository.CustomerRepository;
 import jakarta.validation.Valid;
 
 @RestController
